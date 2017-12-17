@@ -8,7 +8,7 @@
 void Shader::createShader(GLuint type)
 {
 	std::string file, err;
-	unsigned int* id;
+	unsigned int* id = 0;
 	
 	switch (type) {
 	case GL_VERTEX_SHADER:
@@ -45,15 +45,32 @@ void Shader::createShader(GLuint type)
 
 void Shader::createShaderProgram()
 {
+	id = glCreateProgram();
+	glAttachShader(id, vertexId);
+	glAttachShader(id, fragmentId);
+	glLinkProgram(id);
+	int  success;
+	char infoLog[512];
+	glGetProgramiv(id, GL_LINK_STATUS, &success);
+	if (!success) {
+		glGetProgramInfoLog(id, 512, NULL, infoLog);
+		std::cout << "ERROR::SHADER::PROGRAM::COMPILATION_FAILED\n" << infoLog << std::endl;
+	}
 }
 
 Shader::Shader()
 {
-
-
+	createShader(GL_VERTEX_SHADER);
+	createShader(GL_FRAGMENT_SHADER);
+	createShaderProgram();
+	glUseProgram(id);
 }
 
 
 Shader::~Shader()
 {
+	glUseProgram(0);
+	glDeleteProgram(id);
+	glDeleteShader(vertexId);
+	glDeleteShader(fragmentId);
 }
