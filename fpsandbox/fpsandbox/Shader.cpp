@@ -70,6 +70,8 @@ Shader::Shader()
 Shader::~Shader()
 {
 	glUseProgram(0);
+	glDetachShader(id, vertexId);
+	glDetachShader(id, fragmentId);
 	glDeleteProgram(id);
 	glDeleteShader(vertexId);
 	glDeleteShader(fragmentId);
