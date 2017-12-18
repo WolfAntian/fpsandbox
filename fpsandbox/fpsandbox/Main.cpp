@@ -1,5 +1,8 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 #include <string>
 #include <iostream>
@@ -108,10 +111,20 @@ void init() {
 
 	loader->loadToVAO(vertices, 12, indices, 6);
 	//loader->loadToVAO(vertices, indices);
+
+	glm::vec4 vec(1.0f, 0.0f, 0.0f, 1.0f);
+	glm::mat4 trans;
+	trans = glm::translate(trans, glm::vec3(0.5f, 0.5f, 0.0f));
+	trans = glm::rotate(trans, glm::radians(45.0f), glm::vec3(0.0, 0.0, 1.0));
+	trans = glm::scale(trans, glm::vec3(0.1, 0.1, 0.1));
 	
+	vec = trans * vec;
+	std::cout << vec.x << vec.y << vec.z << std::endl;
+
+	unsigned int transformLoc = glGetUniformLocation(shader->getId(), "transform");
+	glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	
 }
 
 void logic() {
