@@ -11,6 +11,8 @@
 
 #include "Shader.h"
 #include "GLLoader.h"
+#include "RawModel.h"
+#include "Entity.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window);
@@ -24,6 +26,8 @@ const unsigned int SCR_HEIGHT = 600;
 
 Shader* shader;
 GLLoader* loader;
+RawModel* model;
+Entity* entity;
 
 
 int main()
@@ -94,36 +98,21 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 }
 
 void init() {
-	float vertices[] = {
-		0.5f,  0.5f, 0.0f,  // top right
-		0.5f, -0.5f, 0.0f,  // bottom right
-		-0.5f, -0.5f, 0.0f,  // bottom left
-		-0.5f,  0.5f, 0.0f   // top left 
-	};
-	unsigned int indices[] = {  // note that we start from 0!
-		0, 1, 3,   // first triangle
-		1, 2, 3    // second triangle
-	};
 
 	shader = new Shader();
 
 	loader = new GLLoader();
 
-	loader->loadToVAO(vertices, 12, indices, 6);
-	//loader->loadToVAO(vertices, indices);
+	model = new RawModel(loader);
 
-	glm::vec4 vec(1.0f, 0.0f, 0.0f, 1.0f);
-	glm::mat4 trans;
-	trans = glm::translate(trans, glm::vec3(0.5f, 0.5f, 0.0f));
-	trans = glm::rotate(trans, glm::radians(45.0f), glm::vec3(0.0, 0.0, 1.0));
-	trans = glm::scale(trans, glm::vec3(0.1, 0.1, 0.1));
+	entity = new Entity(model);
+
+	entity->setPos(0.5f, 0.5f, 0.5f);
+	entity->setRot(0.0f, 0.0f, 45.0f);
+	entity->setScale(1.0f);
+	loader->loadUniformVariableMat4("transform", entity->getMatrix(), shader->getId());
+
 	
-	vec = trans * vec;
-	std::cout << vec.x << vec.y << vec.z << std::endl;
-
-	unsigned int transformLoc = glGetUniformLocation(shader->getId(), "transform");
-	glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));
-
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 }
 
@@ -135,11 +124,15 @@ void render() {
 	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 
-	std::vector<unsigned int> vaos = loader->getVAOs();
+	/*std::vector<unsigned int> vaos = loader->getVAOs();
 	for (auto const& vao : vaos) {
 		std::cout << vao << std::endl;
 		glBindVertexArray(vao);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
-	}
+	}*/
+
+	glBindVertexArray(entity->getRawModel()->getVAO());
+	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+	glBindVertexArray(0);
 }

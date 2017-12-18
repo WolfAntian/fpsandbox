@@ -124,13 +124,17 @@
   <ItemGroup>
     <ClCompile Include="..\..\OpenGLStuff\glad.c" />
     <ClCompile Include="Cuboid.cpp" />
+    <ClCompile Include="Entity.cpp" />
     <ClCompile Include="GLLoader.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="RawModel.cpp" />
     <ClCompile Include="Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cuboid.h" />
+    <ClInclude Include="Entity.h" />
     <ClInclude Include="GLLoader.h" />
+    <ClInclude Include="RawModel.h" />
     <ClInclude Include="Shader.h" />
   </ItemGroup>
   <ItemGroup>
