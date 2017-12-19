@@ -12,6 +12,11 @@ out vec4 FragColor;
 void main()
 {
 	vec3 lightColor = vec3(0.7,0.5,0.5);
+	vec3 bgColor = vec3(0.1, 0.1, 0.1);
+
+	float distance = length(FragPos - lightPos);
+	float visibility = exp(-pow(distance*0.03, 1.5));
+	visibility = clamp(visibility, 0.0, 1.0);
 
 	vec3 norm = normalize(Normal);
 	vec3 lightDir = normalize(lightPos - FragPos);
@@ -27,4 +32,5 @@ void main()
 	vec3 ambient = 0.2 * lightColor;
 	vec3 result = (ambient + diffuse + specular) * objColor;
 	FragColor = vec4(result,1.0f);
+	FragColor = mix(vec4(bgColor,1.0),FragColor, visibility);
 }
