@@ -23,12 +23,14 @@ void Shader::createShader(GLuint type)
 		break;
 	};
 
+	//load src file
 	std::string src = "";
 	std::ifstream input(file);
 	if (input.is_open())
 		src.append((std::istreambuf_iterator<char>(input)), std::istreambuf_iterator<char>());
 	const char *srcc = src.c_str();
 	input.close();
+	//compile shader
 	*id = glCreateShader(type);
 	glShaderSource(*id, 1, &srcc, NULL);
 	glCompileShader(*id);

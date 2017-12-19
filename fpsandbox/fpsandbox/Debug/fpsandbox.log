@@ -1,17 +1,25 @@
-﻿  Main.cpp
+﻿  Shader.cpp
+  Main.cpp
 c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\crtdbg.h(302): warning C4005: '_malloca': macro redefinition
   c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\malloc.h(121): note: see previous definition of '_malloca'
 c:\users\jessica\desktop\anton\fpsandbox\fpsandbox\fpsandbox\main.cpp(146): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
 c:\users\jessica\desktop\anton\fpsandbox\fpsandbox\fpsandbox\main.cpp(147): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
 c:\users\jessica\desktop\anton\fpsandbox\fpsandbox\fpsandbox\main.cpp(148): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 c:\users\jessica\desktop\anton\fpsandbox\fpsandbox\fpsandbox\main.cpp(149): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\jessica\desktop\anton\fpsandbox\fpsandbox\fpsandbox\main.cpp(188): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-c:\users\jessica\desktop\anton\fpsandbox\fpsandbox\fpsandbox\main.cpp(198): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-c:\users\jessica\desktop\anton\fpsandbox\fpsandbox\fpsandbox\main.cpp(230): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-c:\users\jessica\desktop\anton\fpsandbox\fpsandbox\fpsandbox\main.cpp(246): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\jessica\desktop\anton\fpsandbox\fpsandbox\fpsandbox\main.cpp(247): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\jessica\desktop\anton\fpsandbox\fpsandbox\fpsandbox\main.cpp(259): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\jessica\desktop\anton\fpsandbox\fpsandbox\fpsandbox\main.cpp(260): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\jessica\desktop\anton\fpsandbox\fpsandbox\fpsandbox\main.cpp(189): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\jessica\desktop\anton\fpsandbox\fpsandbox\fpsandbox\main.cpp(201): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\jessica\desktop\anton\fpsandbox\fpsandbox\fpsandbox\main.cpp(236): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\jessica\desktop\anton\fpsandbox\fpsandbox\fpsandbox\main.cpp(252): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\jessica\desktop\anton\fpsandbox\fpsandbox\fpsandbox\main.cpp(253): warning C4305: 'argument': truncation from 'double' to 'float'
 c:\users\jessica\desktop\anton\fpsandbox\fpsandbox\fpsandbox\main.cpp(265): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 c:\users\jessica\desktop\anton\fpsandbox\fpsandbox\fpsandbox\main.cpp(266): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\jessica\desktop\anton\fpsandbox\fpsandbox\fpsandbox\main.cpp(271): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\jessica\desktop\anton\fpsandbox\fpsandbox\fpsandbox\main.cpp(272): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  GLLoader.cpp
+  Generating Code...
+  Compiling...
+  RawModel.cpp
+  Entity.cpp
+  Camera.cpp
+  Generating Code...
   fpsandbox.vcxproj -> C:\Users\Jessica\Desktop\Anton\fpsandbox\fpsandbox\Debug\fpsandbox.exe

@@ -165,7 +165,8 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 	glViewport(0, 0, width, height);
 }
 
-
+//initialises the program, 
+//anything needed to be set up at the start is done here except glfw stuff
 void init(GLFWwindow* window) {
 
 	shader = new Shader();
@@ -194,6 +195,8 @@ void init(GLFWwindow* window) {
 	glEnable(GL_DEPTH_TEST);
 }
 
+//the logic done every frame
+//updates objects that need to be updated etc
 void logic(GLFWwindow* window) {
 	float currentTime = glfwGetTime();
 	deltaTime = currentTime - lastTime;
@@ -204,6 +207,8 @@ void logic(GLFWwindow* window) {
 	
 }
 
+//renders the screen every frame
+//makes things appear on screen
 void render() {
 	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -225,6 +230,7 @@ void render() {
 	glBindVertexArray(0);*/
 }
 
+//loads up some cubes 
 void loadCubes() {
 
 	srand(time(NULL));
@@ -241,7 +247,7 @@ void loadCubes() {
 	entity->setRot(45, 45, 0);
 	entities->push_back(entity);
 
-	entity = new Entity(model);
+	entity = new Entity(model); //floor
 	entity->setPos(0.0f, -0.05f, -0.0f);
 	entity->setScale(1000, 0.1, 1000);
 	entity->setColour(0.4, 0.4, 0.4);
