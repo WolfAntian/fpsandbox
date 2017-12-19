@@ -3,6 +3,17 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#define _CRTDBG_MAP_ALLOC  
+#ifdef _DEBUG
+#define DBG_NEW new ( _NORMAL_BLOCK , __FILE__ , __LINE__ )
+// Replace _NORMAL_BLOCK with _CLIENT_BLOCK if you want the
+// allocations to be of _CLIENT_BLOCK type
+#else
+#define DBG_NEW new
+#endif
+
+#include <stdlib.h>  
+#include <crtdbg.h>  
 
 #include <string>
 #include <iostream>
@@ -74,9 +85,14 @@ int main()
 	}
 	delete shader;
 	delete loader;
+	delete model;
+	delete entity;
 	// glfw: terminate, clearing all previously allocated GLFW resources.
 	// ------------------------------------------------------------------
 	glfwTerminate();
+
+	_CrtDumpMemoryLeaks();
+
 	return 0;
 }
 
@@ -107,10 +123,20 @@ void init() {
 
 	entity = new Entity(model);
 
-	entity->setPos(0.5f, 0.5f, 0.5f);
-	entity->setRot(0.0f, 0.0f, 45.0f);
+	entity->setPos(0.0f, 0.0f, 0.0f);
+	entity->setRot(25.0f, 0.0f, 0.0f);
 	entity->setScale(1.0f);
-	loader->loadUniformVariableMat4("transform", entity->getMatrix(), shader->getId());
+	loader->loadUniformVariableMat4("model", entity->getMatrix(), shader->getId());
+
+	glm::mat4 view;
+	// note that we're translating the scene in the reverse direction of where we want to move
+	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+
+	glm::mat4 projection;
+	projection = glm::perspective(glm::radians(75.f), (float)SCR_WIDTH / (float)SCR_HEIGHT, 1.f, 32768.f);
+
+	loader->loadUniformVariableMat4("view", view, shader->getId());
+	loader->loadUniformVariableMat4("projection", projection, shader->getId());
 
 	
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);

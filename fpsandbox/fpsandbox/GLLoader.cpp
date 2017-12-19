@@ -67,6 +67,6 @@ unsigned int GLLoader::loadIndexBuffer(unsigned int indices[], int indicesLength
 
 void GLLoader::loadUniformVariableMat4(std::string location, glm::mat4 value, unsigned int shader)
 {
-	unsigned int transformLoc = glGetUniformLocation(shader, "transform");
+	unsigned int transformLoc = glGetUniformLocation(shader, location.c_str());
 	glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(value));
 }
