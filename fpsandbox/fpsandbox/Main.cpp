@@ -19,6 +19,7 @@
 #include <iostream>
 #include <fstream>
 #include <memory>
+#include <vector>
 
 #include "Shader.h"
 #include "GLLoader.h"
@@ -38,8 +39,9 @@ const unsigned int SCR_HEIGHT = 600;
 Shader* shader;
 GLLoader* loader;
 RawModel* model;
-Entity* entity;
+std::vector<Entity*>* entities;
 
+float mov = 0;
 
 int main()
 {
@@ -86,7 +88,11 @@ int main()
 	delete shader;
 	delete loader;
 	delete model;
-	delete entity;
+	for (auto const& entity : *entities) {
+		delete entity;
+	}
+	delete entities;
+	
 	// glfw: terminate, clearing all previously allocated GLFW resources.
 	// ------------------------------------------------------------------
 	glfwTerminate();
@@ -121,44 +127,50 @@ void init() {
 
 	model = new RawModel(loader);
 
+	entities = new std::vector<Entity*>;
+
+	Entity* entity = new Entity(model);
+	entity->setPos(0.0f, 0.0f, -10.0f);
+	entity->setRot(45.0f, 0.0f, 0.0f);
+	entities->push_back(entity);
+
 	entity = new Entity(model);
+	entity->setPos(1.0f, 1.0f, -2.0f);
+	entity->setRot(12.0f, 270.0f, 98.0f);
+	entities->push_back(entity);
 
-	entity->setPos(0.0f, 0.0f, 0.0f);
-	entity->setRot(25.0f, 0.0f, 0.0f);
-	entity->setScale(1.0f);
-	loader->loadUniformVariableMat4("model", entity->getMatrix(), shader->getId());
-
-	glm::mat4 view;
-	// note that we're translating the scene in the reverse direction of where we want to move
-	view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
 
 	glm::mat4 projection;
-	projection = glm::perspective(glm::radians(75.f), (float)SCR_WIDTH / (float)SCR_HEIGHT, 1.f, 32768.f);
-
-	loader->loadUniformVariableMat4("view", view, shader->getId());
+	projection = glm::perspective(glm::radians(45.f), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.01f, 32768.f);
 	loader->loadUniformVariableMat4("projection", projection, shader->getId());
 
 	
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	glEnable(GL_DEPTH_TEST);
 }
 
 void logic() {
-
+	glm::mat4 view;
+	// note that we're translating the scene in the reverse direction of where we want to move
+	mov += 0.00003f;
+	view = glm::translate(view, glm::vec3(mov, 0.0f, -mov*4));
+	view = glm::rotate(view, glm::radians(mov*1000), glm::vec3(0.0, 0.0, 1.0));
+	loader->loadUniformVariableMat4("view", view, shader->getId());
 }
 
 void render() {
 	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	/*std::vector<unsigned int> vaos = loader->getVAOs();
-	for (auto const& vao : vaos) {
-		std::cout << vao << std::endl;
-		glBindVertexArray(vao);
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-		glBindVertexArray(0);
-	}*/
-
-	glBindVertexArray(entity->getRawModel()->getVAO());
-	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+	glBindVertexArray(model->getVAO()); //all entities are using same model, do something similar for batch rendering 
+	for (auto const& entity : *entities) {
+		loader->loadUniformVariableMat4("model", entity->getMatrix(), shader->getId());
+		glDrawElements(GL_TRIANGLES, model->getIndexBufferSize(), GL_UNSIGNED_INT, 0);
+		
+	}
 	glBindVertexArray(0);
+
+	/*glBindVertexArray(entity->getRawModel()->getVAO());
+	glDrawElements(GL_TRIANGLES, 24, GL_UNSIGNED_INT, 0);
+	glBindVertexArray(0);*/
 }

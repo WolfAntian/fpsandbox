@@ -6,7 +6,7 @@
 
 class RawModel
 {
-	unsigned int vao, vertexBuffer, indexBuffer;
+	unsigned int vao, vertexBuffer, indexBuffer, indexBufferSize;
 	GLLoader* loader;
 
 	void init(float vertices[], int verticesLength, unsigned int indices[], int indicesLength, GLLoader* loader);
@@ -16,5 +16,6 @@ public:
 	~RawModel();
 
 	unsigned int getVAO() { return vao; };
+	unsigned int getIndexBufferSize() { return indexBufferSize; };
 };
 

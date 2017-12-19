@@ -7,23 +7,35 @@ void RawModel::init(float vertices[], int verticesLength, unsigned int indices[]
 	vao = loader->loadVAO();
 	vertexBuffer = loader->loadVertexBuffer(vertices, verticesLength, vao);
 	indexBuffer = loader->loadIndexBuffer(indices, indicesLength, vao);
+	this->indexBufferSize = indicesLength;
 	this->loader = loader;
 }
 
 
 RawModel::RawModel(GLLoader * loader)
 {
-	float vertices[] = {
-		0.5f,  0.5f, 0.0f,  // top right
-		0.5f, -0.5f, 0.0f,  // bottom right
-		-0.5f, -0.5f, 0.0f,  // bottom left
-		-0.5f,  0.5f, 0.0f   // top left 
+	//defaults to cube
+	float vertices[24] =
+	{
+		-1, -1, -1,
+		1, -1, -1,
+		1, 1, -1,
+		-1, 1, -1,
+		-1, -1, 1,
+		1, -1, 1,
+		1, 1, 1,
+		-1, 1, 1
 	};
-	unsigned int indices[] = {  // note that we start from 0!
-		0, 1, 3,   // first triangle
-		1, 2, 3    // second triangle
+	unsigned int indices[36] =
+	{
+		0, 1, 3, 3, 1, 2,
+		1, 5, 2, 2, 5, 6,
+		5, 4, 6, 6, 4, 7,
+		4, 0, 7, 7, 0, 3,
+		3, 2, 7, 7, 2, 6,
+		4, 5, 0, 0, 5, 1
 	};
-	init(vertices, 12, indices, 6, loader);
+	init(vertices, 24, indices, 36, loader);
 }
 
 RawModel::RawModel(float vertices[], int verticesLength, unsigned int indices[], int indicesLength, GLLoader* loader)

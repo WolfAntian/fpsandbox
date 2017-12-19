@@ -19,12 +19,12 @@
     <Filter Include="Source Files\renderEngine\shaders">
       <UniqueIdentifier>{c1724729-a88a-4be2-a4f7-eed855d2bc62}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\entities">
+      <UniqueIdentifier>{6b9d8278-2ec0-4dcd-9d72-49f69d67f939}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Cuboid.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GLLoader.cpp">
@@ -36,17 +36,14 @@
     <ClCompile Include="..\..\OpenGLStuff\glad.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="RawModel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Entity.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="RawModel.cpp">
+      <Filter>Source Files\entities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Cuboid.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GLLoader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
