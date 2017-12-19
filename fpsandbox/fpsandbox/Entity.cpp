@@ -4,7 +4,7 @@ void Entity::setTransformation(float posx, float posy, float posz, float rotx, f
 {
 	pos = glm::vec3(posx, posy, posz);
 	rot = glm::vec3(rotx, roty, rotz);
-	this->scale = scale;
+	setScale(scale);
 }
 
 void Entity::setPos(float x, float y, float z)
@@ -29,7 +29,17 @@ void Entity::addRot(float x, float y, float z)
 
 void Entity::setScale(float value)
 {
-	scale = value;
+	scale = glm::vec3(value, value, value);
+}
+
+void Entity::setScale(float x, float y, float z)
+{
+	scale = glm::vec3(x, y, z);
+}
+
+void Entity::setColour(float r, float g, float b)
+{
+	colour = glm::vec3(r,g,b);
 }
 
 glm::mat4 Entity::getMatrix()
@@ -39,7 +49,7 @@ glm::mat4 Entity::getMatrix()
 	trans = glm::rotate(trans, glm::radians(rot[0]), glm::vec3(1.0, 0.0, 0.0));
 	trans = glm::rotate(trans, glm::radians(rot[1]), glm::vec3(0.0, 1.0, 0.0));
 	trans = glm::rotate(trans, glm::radians(rot[2]), glm::vec3(0.0, 0.0, 1.0));
-	trans = glm::scale(trans, glm::vec3(scale, scale, scale));
+	trans = glm::scale(trans, scale);
 
 	return trans;
 }
@@ -47,7 +57,7 @@ glm::mat4 Entity::getMatrix()
 Entity::Entity(RawModel * rawModel)
 {
 	this->rawModel = rawModel;
-	scale = 1.0f;
+	setScale(1.0f);
 }
 
 Entity::~Entity()

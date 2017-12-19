@@ -15,27 +15,49 @@ void RawModel::init(float vertices[], int verticesLength, unsigned int indices[]
 RawModel::RawModel(GLLoader * loader)
 {
 	//defaults to cube
-	float vertices[24] =
-	{
-		-1, -1, -1,
-		1, -1, -1,
-		1, 1, -1,
-		-1, 1, -1,
-		-1, -1, 1,
-		1, -1, 1,
-		1, 1, 1,
-		-1, 1, 1
+	float vertices[144] = {
+		-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+		0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+		0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+		-0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+
+		-0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+		0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+		0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+		-0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+
+		-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+		-0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+		-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+		-0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+
+		0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+		0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+		0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+		0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+
+		-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+		0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+		0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+		-0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+
+		-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
+		0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
+		0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+		-0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f
+
 	};
 	unsigned int indices[36] =
 	{
-		0, 1, 3, 3, 1, 2,
-		1, 5, 2, 2, 5, 6,
-		5, 4, 6, 6, 4, 7,
-		4, 0, 7, 7, 0, 3,
-		3, 2, 7, 7, 2, 6,
-		4, 5, 0, 0, 5, 1
+		0,1,2,2,3,0,
+		4,5,6,6,7,4,
+		8,9,10,10,11,8,
+		12,13,14,14,15,12,
+		16,17,18,18,19,16,
+		20,21,22,22,23,20
+
 	};
-	init(vertices, 24, indices, 36, loader);
+	init(vertices, 144, indices, 36, loader);
 }
 
 RawModel::RawModel(float vertices[], int verticesLength, unsigned int indices[], int indicesLength, GLLoader* loader)
