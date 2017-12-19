@@ -8,6 +8,10 @@ c:\users\jessica\desktop\anton\fpsandbox\fpsandbox\fpsandbox\main.cpp(149): warn
 c:\users\jessica\desktop\anton\fpsandbox\fpsandbox\fpsandbox\main.cpp(188): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
 c:\users\jessica\desktop\anton\fpsandbox\fpsandbox\fpsandbox\main.cpp(198): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
 c:\users\jessica\desktop\anton\fpsandbox\fpsandbox\fpsandbox\main.cpp(230): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-c:\users\jessica\desktop\anton\fpsandbox\fpsandbox\fpsandbox\main.cpp(245): warning C4305: 'argument': truncation from 'double' to 'float'
 c:\users\jessica\desktop\anton\fpsandbox\fpsandbox\fpsandbox\main.cpp(246): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\jessica\desktop\anton\fpsandbox\fpsandbox\fpsandbox\main.cpp(247): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\jessica\desktop\anton\fpsandbox\fpsandbox\fpsandbox\main.cpp(259): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\jessica\desktop\anton\fpsandbox\fpsandbox\fpsandbox\main.cpp(260): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\jessica\desktop\anton\fpsandbox\fpsandbox\fpsandbox\main.cpp(265): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\jessica\desktop\anton\fpsandbox\fpsandbox\fpsandbox\main.cpp(266): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   fpsandbox.vcxproj -> C:\Users\Jessica\Desktop\Anton\fpsandbox\fpsandbox\Debug\fpsandbox.exe

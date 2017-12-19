@@ -238,6 +238,7 @@ void loadCubes() {
 	entity = new Entity(model);
 	entity->setPos(1.0f, 1.0f, -2.0f);
 	entity->setColour((rand() % 1000) / 1000.0f, (rand() % 1000) / 1000.0f, (rand() % 1000) / 1000.0f);
+	entity->setRot(45, 45, 0);
 	entities->push_back(entity);
 
 	entity = new Entity(model);
@@ -251,5 +252,21 @@ void loadCubes() {
 	entity->setScale(1, 10, 1);
 	entity->setColour((rand() % 1000)/1000.0f, (rand() % 1000) / 1000.0f, (rand() % 1000) / 1000.0f);
 	entities->push_back(entity);
+
+
+	for (int a = 0; a < 100; a++) {
+		entity = new Entity(model);
+		entity->setPos(10 + a, 0.0f, 3.0f);
+		entity->setScale(1, 1+(rand() % 20), 1);
+		entity->setColour((rand() % 1000) / 1000.0f, (rand() % 1000) / 1000.0f, (rand() % 1000) / 1000.0f);
+		entities->push_back(entity);
+
+		entity = new Entity(model);
+		entity->setPos(10+a, 0.0f, -3.0f);
+		entity->setScale(1, 1+(rand() % 20), 1);
+		entity->setColour((rand() % 1000) / 1000.0f, (rand() % 1000) / 1000.0f, (rand() % 1000) / 1000.0f);
+		entities->push_back(entity);
+	}
+
 
 }
