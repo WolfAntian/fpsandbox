@@ -25,11 +25,12 @@
 #include "GLLoader.h"
 #include "RawModel.h"
 #include "Entity.h"
+#include "Camera.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window);
-void init();
-void logic();
+void init(GLFWwindow* window);
+void logic(GLFWwindow* window);
 void render();
 
 // settings
@@ -39,9 +40,12 @@ const unsigned int SCR_HEIGHT = 600;
 Shader* shader;
 GLLoader* loader;
 RawModel* model;
+Camera* camera;
 std::vector<Entity*>* entities;
 
-float mov = 0;
+float deltaTime = 0.0f;
+float lastTime = 0.0f;
+float lastMouseX = 400, lastMouseY = 300;
 
 int main()
 {
@@ -72,14 +76,14 @@ int main()
 		return -1;
 	}
 
-	init();
+	init(window);
 
 	// render loop
 	// -----------
 	while (!glfwWindowShouldClose(window))
 	{
-		processInput(window);
-		logic();
+		
+		logic(window);
 		render();
 
 		glfwSwapBuffers(window);
@@ -88,6 +92,7 @@ int main()
 	delete shader;
 	delete loader;
 	delete model;
+	delete camera;
 	for (auto const& entity : *entities) {
 		delete entity;
 	}
@@ -106,8 +111,46 @@ int main()
 // ---------------------------------------------------------------------------------------------------------
 void processInput(GLFWwindow *window)
 {
+	//keyboard
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);
+
+	float moveSpeed = deltaTime * 6.0f; // adjust accordingly	
+	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
+		camera->addPosZ(cos(glm::radians(camera->getYaw())) * moveSpeed);
+		camera->addPosX(-sin(glm::radians(camera->getYaw())) * moveSpeed);
+	}
+	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
+		camera->addPosZ(-cos(glm::radians(camera->getYaw())) * moveSpeed);
+		camera->addPosX(sin(glm::radians(camera->getYaw())) * moveSpeed);
+	}
+	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
+		camera->addPosX(cos(glm::radians(camera->getYaw())) * moveSpeed);
+		camera->addPosZ(sin(glm::radians(camera->getYaw())) * moveSpeed);
+	}
+	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
+		camera->addPosX(-cos(glm::radians(camera->getYaw())) * moveSpeed);
+		camera->addPosZ(-sin(glm::radians(camera->getYaw())) * moveSpeed);
+	}
+
+
+
+	//mouse
+	double xpos, ypos;
+	glfwGetCursorPos(window, &xpos, &ypos);
+	float xoffset = xpos - lastMouseX;
+	float yoffset = lastMouseY - ypos; 
+	lastMouseX = xpos;
+	lastMouseY = ypos;
+
+	float mouseSensitivity = 0.05f;
+	xoffset *= mouseSensitivity;
+	yoffset *= mouseSensitivity;
+
+	camera->addYaw(xoffset);
+	camera->addPitch(yoffset);
+
+	std::cout << camera->getYaw() << "::" << camera->getPitch() << std::endl;
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes
@@ -119,13 +162,16 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 	glViewport(0, 0, width, height);
 }
 
-void init() {
+
+void init(GLFWwindow* window) {
 
 	shader = new Shader();
 
 	loader = new GLLoader();
 
 	model = new RawModel(loader);
+
+	camera = new Camera();
 
 	entities = new std::vector<Entity*>;
 
@@ -144,18 +190,25 @@ void init() {
 	projection = glm::perspective(glm::radians(45.f), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.01f, 32768.f);
 	loader->loadUniformVariableMat4("projection", projection, shader->getId());
 
+	float currentTime = glfwGetTime();
+	deltaTime = currentTime;
+	lastTime = currentTime;
 	
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	glEnable(GL_DEPTH_TEST);
 }
 
-void logic() {
-	glm::mat4 view;
-	// note that we're translating the scene in the reverse direction of where we want to move
-	mov += 0.00003f;
-	view = glm::translate(view, glm::vec3(mov, 0.0f, -mov*4));
-	view = glm::rotate(view, glm::radians(mov*1000), glm::vec3(0.0, 0.0, 1.0));
-	loader->loadUniformVariableMat4("view", view, shader->getId());
+void logic(GLFWwindow* window) {
+	float currentTime = glfwGetTime();
+	deltaTime = currentTime - lastTime;
+	lastTime = currentTime;
+
+	processInput(window);
+
+	//camera->addPosZ(deltaTime * -3);
+
+	loader->loadUniformVariableMat4("view", camera->generateInverseMatrix(), shader->getId());
 }
 
 void render() {

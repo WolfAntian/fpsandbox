@@ -1,4 +1,10 @@
 ﻿  Main.cpp
 c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\crtdbg.h(302): warning C4005: '_malloca': macro redefinition
   c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\malloc.h(121): note: see previous definition of '_malloca'
+c:\users\jessica\desktop\anton\fpsandbox\fpsandbox\fpsandbox\main.cpp(141): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\jessica\desktop\anton\fpsandbox\fpsandbox\fpsandbox\main.cpp(142): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\jessica\desktop\anton\fpsandbox\fpsandbox\fpsandbox\main.cpp(143): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\jessica\desktop\anton\fpsandbox\fpsandbox\fpsandbox\main.cpp(144): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\jessica\desktop\anton\fpsandbox\fpsandbox\fpsandbox\main.cpp(193): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\jessica\desktop\anton\fpsandbox\fpsandbox\fpsandbox\main.cpp(203): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
   fpsandbox.vcxproj -> C:\Users\Jessica\Desktop\Anton\fpsandbox\fpsandbox\Debug\fpsandbox.exe
